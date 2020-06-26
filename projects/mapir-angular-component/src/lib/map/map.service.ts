@@ -506,11 +506,13 @@ export class MapService {
       });
     this.mapInstance = new MapboxGl.Map(options);
 
-    // mapir: setRTLTextPlugin
-    MapboxGl.setRTLTextPlugin(
-      "https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js",
-      ()=>{}
-    );
+    if (MapboxGl.getRTLTextPluginStatus() !== 'loaded') {
+      // mapir: setRTLTextPlugin
+      MapboxGl.setRTLTextPlugin(
+        "https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js",
+        ()=>{}
+      );
+    }
 
     const isIEorEdge = window && /msie\s|trident\/|edge\//i.test(window.navigator.userAgent);
     if (isIEorEdge) {
